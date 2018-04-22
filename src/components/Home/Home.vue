@@ -2,7 +2,7 @@
     <div id="home">
         <HomeResource v-for="resource in resources" :key="resource._id"
             :resource="resource"
-            :outposts="outposts"
+            :locations="locations"
             />
     </div>
 </template>
@@ -10,7 +10,7 @@
 <script>
 import HomeResource from './HomeResource.vue'
 export default {
-    props: [ 'resources', 'outposts' ],
+    props: [ 'resources', 'locations' ],
     components: { HomeResource }
 }
 </script>

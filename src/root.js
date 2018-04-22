@@ -32,7 +32,10 @@ const root = new Vue({
         let data = {
             resources: [],
             locations: [],
-            outposts: [],
+            location_types: [
+                'Moon',
+                'Outpost'
+            ],
             missions: [],
             characters: [],
             entities: [],
@@ -51,7 +54,6 @@ const root = new Vue({
         })
         this.$http.get('resources/').then(res => { this.resources = res.data })
         this.$http.get('locations/').then(res => { this.locations = res.data })
-        this.$http.get('outposts/').then(res => { this.outposts = res.data })
         this.$http.get('characters/').then(res => { this.characters = res.data })
         this.$http.get('missions/').then(res => { this.missions = res.data })
         this.$http.get('entities/').then(res => { this.entities = res.data })

@@ -14,19 +14,13 @@ export default {
             type: {
                 type: 'String',
                 required: true
-            }
-        },
-        outpost: {
-            name: {
-                type: 'String',
-                required: true
             },
-            location: {
+            location_id: {
                 type: 'String',
-                required: true
+                required: false
             },
             resources: {
-                resource: {
+                resource_id: {
                     type: 'String',
                     required: true
                 },

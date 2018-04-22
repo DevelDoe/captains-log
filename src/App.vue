@@ -19,7 +19,6 @@
             <li><router-link :to="{ name: 'home', params: {} }">home</router-link></li>
             <li><router-link :to="{ name: 'resources', params: {} }">resources</router-link></li>
             <li><router-link :to="{ name: 'locations', params: {} }">locations</router-link></li>
-            <li><router-link :to="{ name: 'outposts', params: {} }">outposts</router-link></li>
             <li><router-link :to="{ name: 'missions', params: {} }">missions</router-link></li>
             <li><router-link :to="{ name: 'characters', params: {} }">characters</router-link></li>
             <li><router-link :to="{ name: 'entities', params: {} }">entities</router-link></li>
@@ -29,7 +28,7 @@
         <router-view
             :resources="resources"
             :locations="locations"
-            :outposts="outposts"
+            :location_types="location_types"
             :missions="missions"
             :characters="characters"
             :entities="entities"
@@ -49,7 +48,7 @@ export default {
     props: [
         'resources',
         'locations',
-        'outposts',
+        'location_types',
         'missions',
         'response',
         'entities',
@@ -155,7 +154,7 @@ export default {
         })
     },
     mounted () {
-        console.log('on submit go to details, validating type (mission.payment)')
+        console.log('on submit go to details')
     }
 }
 </script>

@@ -4,8 +4,15 @@
             <div slot="header"> <h2>Add Location</h2> </div>
             <div slot="bread">
                 <form id="modal-form">
-                    <input type="text" v-model="location.name" placeholder="Name">
-                    <input type="text" v-model="location.type" placeholder="Type">
+                    <input type="text" v-model="inputs.location_name" placeholder="Name">
+                    type:
+                    <select v-model="inputs.location_type">
+                        <option v-for='location in location_types' :value="location" >{{ location }}</option>
+                    </select>
+                    location:
+                    <select v-model="inputs.location_id">
+                        <option v-for='location in locations' :value="location._id" >{{ location.name }}</option>
+                    </select>
                 </form>
             </div>
             <div slot="footer">
@@ -16,9 +23,10 @@
         </DevelModal>
         <header> <h2>Locations</h2> </header>
         <section class="main">
-            <LocationsLocation v-for='(location, i) in locations' :key="i"
-                :location="location"
+            <LocationsLocation v-for='( o, i) in sortedLocationsList' :key="i"
+                :location="o"
                 :index="i"
+                :type="o.type"
             />
         </section>
         <footer>
@@ -32,27 +40,35 @@
 
 <script>
 import LocationsLocation from './LocationsLocation.vue'
+
 import { bus } from '../../root'
 export default {
-    props: [ 'locations', 'meta_data' ],
+    props: [ 'location_types', 'locations', 'meta_data' ],
     data () {
         return {
-            location: {
-                name: '',
-                type: ''
+            inputs: {
+                location_name: '',
+                location_type: '',
+                location_id: '',
             }
         }
     },
+    computed: { sortedLocationsList () { return this.mixinsSortList(this.locations) } },
     methods: {
-        openModal(modal) {
-            this.mixinsToggleModal(modal)
+        openModal( modal ) {
+            this.mixinsToggleModal( modal )
         },
-        save(modal) {
-            const valid = this.mixinsToggleModal(modal, this.meta_data.validation_rules.location, this.location)
+        save( modal ) {
+            const location = {}
+            location.name = this.inputs.location_name
+            location.type = this.inputs.location_type
+            location.resources = []
+            location.location_id = this.inputs.location_id
+            const valid = this.mixinsToggleModal( modal, this.meta_data.validation_rules.location, location)
             if (valid) {
-                bus.$emit('save', 'locations', this.location )
-                this.location.name = ''
-                this.location.type = ''
+                bus.$emit( 'save', 'locations', location )
+                this.inputs.location_name = ''
+                this.inputs.location_type = ''
             }
         }
     },

@@ -19,7 +19,6 @@ var cors        = require('cors')
 var morgan      = require('morgan')
 var Resource    = require('./data/models/resource')
 var Location    = require('./data/models/location')
-var Outpost     = require('./data/models/outpost')
 var Mission     = require('./data/models/mission')
 var Character   = require('./data/models/character')
 var Entity      = require('./data/models/entity')
@@ -126,6 +125,8 @@ router.route('/locations')
 
         location.name = req.body.name
         location.type = req.body.type
+        location.location_id = req.body.location_id
+        location.resources = req.body.resources
 
         location.save(function(err) {
             if (err) {
@@ -163,6 +164,8 @@ router.route('/locations/:location_id')
 
             location.name = req.body.name
             location.type = req.body.type
+            location.location_id = req.body.location_id
+            location.resources = req.body.resources
 
             location.save(function (err) {
                 if (err) {
@@ -182,74 +185,6 @@ router.route('/locations/:location_id')
                 return
             }
             res.json({ model: 'location' })
-        })
-    })
- // ################# outposts ####################
- router.route('/outposts')
-    .post(function(req, res) {
-       var outpost = new Outpost()
-
-       outpost.name = req.body.name
-       outpost.location_id = req.body.location_id
-       outpost.resources = req.body.resources
-
-       outpost.save(function(err) {
-           if (err) {
-               error(res, err)
-               return
-           }
-           res.json({ model: 'outpost', _id: outpost._id })
-       })
-
-    })
-    .get(function(req, res) {
-        Outpost.find(function(err, outposts) {
-            if (err) {
-                error(res, err)
-                return
-            }
-           res.json(outposts)
-        })
-    })
-router.route('/outposts/:outpost_id')
-    .get(function (req, res) {
-        Outpost.findById(req.params.outpost_id, function (err, outpost) {
-            if (err) {
-                error(res, err)
-                return
-            }
-            res.json(outpost)
-        })
-    })
-    .put(function (req, res) {
-        Outpost.findById(req.params.outpost_id, function (err, outpost) {
-            if (err) {
-                error(res, err)
-                return
-            }
-
-            outpost.name = req.body.name
-            outpost.location_id = req.body.location_id
-            outpost.resources = req.body.resources
-
-            outpost.save(function (err) {
-                if (err) {
-                    error(res, err)
-                    return
-                }
-                res.json({ model: 'outpost' })
-            })
-        })
-    })
-    .delete(function (req, res) {
-        Outpost.remove({
-            _id: req.params.outpost_id
-        }, function (err, outpost) {
-            if (err) {
-                error(res, err)
-                return
-            }
-            res.json({ model: 'outpost' })
         })
     })
 // ################# MISSIONS ####################

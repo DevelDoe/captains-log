@@ -1,14 +1,18 @@
 import Home from '../components/Home/Home.vue'
+
 import Resources from '../components/Resources/Resources.vue'
 import ResourceDetails from '../components/Resources/ResourceDetails.vue'
+
 import Locations from '../components/Locations/Locations.vue'
-import LocationDetails from '../components/Locations/LocationDetails.vue'
-import Outposts from '../components/Outposts/Outposts.vue'
-import OutpostDetails from '../components/Outposts/OutpostDetails.vue'
+import MoonDetails from '../components/Locations/MoonDetails.vue'
+import OutpostDetails from '../components/Locations/OutpostDetails.vue'
+
 import Missions from '../components/Missions/Missions.vue'
 import MissionDetails from '../components/Missions/MissionDetails.vue'
+
 import Characters from '../components/Characters/Characters.vue'
 import CharacterDetails from '../components/Characters/CharacterDetails.vue'
+
 import Entities from '../components/Entities/Entities.vue'
 import EntityDetails from '../components/Entities/EntityDetails.vue'
 
@@ -25,21 +29,17 @@ export default [{
         component: ResourceDetails,
         name: 'resource-details'
     },{
-        path: '/locations',
-        component: Locations,
-        name: 'locations'
-    },{
-        path: '/location-details',
-        component: LocationDetails,
-        name: 'location-details'
-    },{
-        path: '/outposts',
-        component: Outposts,
-        name: 'outposts'
+        path: '/moon-details',
+        component: MoonDetails,
+        name: 'Moon'
     },{
         path: '/outpost-details',
         component: OutpostDetails,
-        name: 'outpost-details'
+        name: 'Outpost'
+    },{
+        path: '/locations',
+        component: Locations,
+        name: 'locations'
     },{
         path: '/missions',
         component: Missions,

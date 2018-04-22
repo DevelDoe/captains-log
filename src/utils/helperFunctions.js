@@ -4,11 +4,7 @@ const helperFunctions = {
     install(Vue, options) {
         Vue.mixin({
             methods: {
-                mixinsSortList () {
-
-                    const args = (arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments))
-                    const list = args.shift()
-
+                mixinsSortList(list) {
                     return list.sort((a, b) => {
                         const name_a = a.name.toUpperCase()
                         const name_b = b.name.toUpperCase()
@@ -17,7 +13,12 @@ const helperFunctions = {
                         return 0
                     })
                 },
-                empty (data) {
+                mixinsSortNumbers(numbers) {
+                    return list.sort((a, b) => {
+                        return a - b;
+                    })
+                },
+                empty(data) {
 
                     if (typeof(data) == 'number' || typeof(data) == 'boolean') return false
                     if (typeof(data) == 'undefined' || data === null) return true
@@ -52,15 +53,14 @@ const helperFunctions = {
 
                                 if ( self.empty( data[key] ) ) {
                                     invalid = true
-                                    key = key.split("_")[0]
-                                    errorMessage.push(key + ' field must be filled out')
+                                    errorMessage.push(key.split("_")[0] + ' field must be filled out')
                                 }
+
                                 if( validationRules[key].type === 'Number' ) {
                                     data[key] = (data[key]/1)
                                     if( data[key] !== data[key] ) {
                                         invalid = true
-                                        key = key.split("_")[0]
-                                        errorMessage.push(key + ' should be in digits')
+                                        errorMessage.push(key.split("_")[0] + ' should be in digits')
                                     }
                                 }
                             }
