@@ -26,6 +26,9 @@ option {
     font-size: 100%;
     height: 30px;
 }
+strong {
+    font-weight: 900;
+}
 .backBtn a {
     font-size: 25px;
 }

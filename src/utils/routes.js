@@ -6,6 +6,7 @@ import ResourceDetails from '../components/Resources/ResourceDetails.vue'
 import Locations from '../components/Locations/Locations.vue'
 import MoonDetails from '../components/Locations/MoonDetails.vue'
 import OutpostDetails from '../components/Locations/OutpostDetails.vue'
+import StationDetails from '../components/Locations/StationDetails.vue'
 
 import Missions from '../components/Missions/Missions.vue'
 import MissionDetails from '../components/Missions/MissionDetails.vue'
@@ -29,6 +30,10 @@ export default [{
         component: ResourceDetails,
         name: 'resource-details'
     },{
+        path: '/locations',
+        component: Locations,
+        name: 'locations'
+    },{
         path: '/moon-details',
         component: MoonDetails,
         name: 'Moon'
@@ -37,9 +42,9 @@ export default [{
         component: OutpostDetails,
         name: 'Outpost'
     },{
-        path: '/locations',
-        component: Locations,
-        name: 'locations'
+        path: '/station-details',
+        component: StationDetails,
+        name: 'Station'
     },{
         path: '/missions',
         component: Missions,

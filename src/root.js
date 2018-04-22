@@ -33,6 +33,7 @@ const root = new Vue({
             resources: [],
             locations: [],
             location_types: [
+                'Station',
                 'Moon',
                 'Outpost'
             ],

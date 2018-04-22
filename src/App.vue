@@ -154,7 +154,7 @@ export default {
         })
     },
     mounted () {
-        console.log('on submit go to details')
+        console.log('filter button locations by type, resource details, missions mm...., filter search field, sort addResource ')
     }
 }
 </script>

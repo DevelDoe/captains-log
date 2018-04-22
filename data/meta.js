@@ -24,9 +24,13 @@ export default {
                     type: 'String',
                     required: true
                 },
-                price: {
+                sell: {
                     type: 'Number',
-                    required: true
+                    required: false
+                },
+                buy: {
+                    type: 'Number',
+                    required: false
                 }
             }
         },

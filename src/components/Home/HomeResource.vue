@@ -1,7 +1,6 @@
 <template lang="html">
     <div id="home-resource">
         <router-link :to="{ name: 'resource-details', query: { resource_id: resource._id } }">
-            {{ resource.name }}: <span v-for="( o, i ) in prices">{{ o.location }}: {{ o.price }} </span>
         </router-link>
     </div>
 </template>
@@ -10,18 +9,24 @@
 export default {
     props: [ 'locations', 'resource' ],
     computed: {
-        prices() {
-            let prices = []
+        comLocations() {
+            let res = []
             this.locations.forEach(location => {
                 location.resources.forEach(resource => {
                     if( resource.resource_id === this.resource._id) {
-                        prices.push( { location: location.name, price: resource.price})
+                        var splitStr = location.name.toLowerCase().split(' ')
+                        for (var i = 0; i < splitStr.length; i++) {
+                            var isnum = /^\d+$/.test(splitStr[i])
+                            if(isnum) splitStr[i] = splitStr[i]
+                            else splitStr[i] = splitStr[i].charAt(0).toUpperCase()
+                        }
+                        res.push( { location: splitStr.join(''), sell: resource.sell})
                     }
                 })
 
             })
-            return prices.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
-        }
+            return res.sort((a, b) => parseFloat(a.sell) - parseFloat(b.sell))
+        },
     }
 }
 </script>

@@ -15,11 +15,16 @@
                 </div>
             </div>
         </DevelModal>
-        <div class="backBtn">
-            <router-link :to="{ name: 'resources' }">&#10149</router-link>
-        </div>
+
+        <div class="backBtn"><button @click="$router.go(-1)">go back</button></div>
         <header> <h2>{{ resource.name }}</h2> </header>
-        <section class="main"> </section>
+        <section class="main">
+            <div id="best-margin">
+                <ul>
+                    <li v-for="( o, i ) in comLocations"> {{ o.location }}:</strong>  SELL {{ o.sell }} BUY {{ o.buy }} </li>
+                </ul>
+            </div>
+        </section>
         <footer>
             <div class="app-controls">
                 <button @click="openModal('updateResource')">update</button>
@@ -32,12 +37,27 @@
 <script>
 import { bus } from '../../root'
 export default {
-    props: [ 'resources', 'meta_data' ],
+    props: [ 'resources', 'meta_data', 'locations' ],
     data () {
         return {
             resource_index      : this.$route.query.resource_index,
             resource_id         : this.$route.query.resource_id
         }
+    },
+    computed: {
+        comLocations() {
+            let res = []
+            this.locations.forEach(location => {
+                location.resources.forEach(resource => {
+                    if( resource.resource_id === this.resource._id) {
+                        res.push( { location: location.name, sell: resource.sell, buy: resource.buy })
+                    }
+                })
+
+            })
+            return res.sort((a, b) => parseFloat(a.sell) - parseFloat(b.sell))
+        },
+        resource () { return this.resources.find(r => r._id === this.resource_id) || null }
     },
     methods: {
         openModal(modal) {
@@ -49,10 +69,7 @@ export default {
         },
         del() {
             bus.$emit('delete', 'resources', this.resource_id, this.resource_index)
-        }
-    },
-    computed: {
-        resource () { return this.resources.find(r => r._id === this.resource_id) || null }
+        },
     }
 }
 </script>
