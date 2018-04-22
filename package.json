@@ -2,9 +2,11 @@
   "name": "develcrud",
   "version": "0.0.0",
   "description": "administration site",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "webpack --config webpack.config.js",
     "dev": "webpack-dev-server"
   },
   "repository": {
@@ -18,22 +20,35 @@
   },
   "homepage": "https://github.com/DevelDoe/devel-crud#readme",
   "dependencies": {
+    "bignumber.js": "^6.0.0",
     "devel-style": "^3.1.0",
+    "dotenv": "^5.0.1",
+    "morgan": "^1.9.0",
+    "rotating-file-stream": "^1.3.6",
     "vue": "^2.5.13"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
+    "babel-loader": "^7.1.4",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "css-loader": "^0.28.8",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.6",
+    "mongoose": "^5.0.15",
     "style-loader": "^0.19.1",
-    "vue-loader": "^13.7.0",
+    "vue-loader": "^14.2.2",
+    "vue-resource": "^1.5.0",
     "vue-router": "^3.0.1",
     "vue-style-loader": "^3.0.3",
     "vue-template-compiler": "^2.5.13",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.3",
     "write-file-webpack-plugin": "^4.2.0"
   }
 }

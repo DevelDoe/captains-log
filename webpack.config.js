@@ -6,6 +6,7 @@
  * @Last modified by:   andreeray
  * @Last modified time: 2018-01-18T21:26:51+01:00
  */
+require('dotenv').config()
 const path = require('path')
 const WriteFilePlugin = require('write-file-webpack-plugin')
 
@@ -17,9 +18,13 @@ module.exports = {
         filename: 'bundle.js'
     },
 
+    mode: process.env.MODE,
+
     watch: true,
 
     devServer: {
+        contentBase: path.join(__dirname, "dist"),
+        compress: true,
         inline: true,
         port: 3001
     },

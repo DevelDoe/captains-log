@@ -1,0 +1,66 @@
+article, aside, blockquote, body, br, button, canvas, caption, col, colgroup, dd, div, dl, dt, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, li, map, object, ol, output, p, pre, progress, section, table, tbody, textarea, tfoot, th, thead, tr, ul, video {
+    outline: none;
+    font-size: 16px;
+}
+* { /* Not related to floats / clear both, used it for demo purpose only */
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+h1 { font-size: 2.1em } h2 { font-size: 2em } h3 { font-size: 1.8em } h4 { font-size: 1.6em } h5 { font-size: 1.4em } h6 { font-size: 1.2em }
+nav li { float: left; }
+nav li a { text-decoration: none; color: rgb(0, 119, 204)}
+nav li a:hover { color: #f4f4f4; }
+a {
+    text-decoration: none;
+}
+select {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    height: 30px;
+}
+option {
+    background: rgb(0, 119, 204);
+    color: white;
+    font-size: 100%;
+    height: 30px;
+}
+.backBtn a {
+    font-size: 25px;
+}
+button {
+    border: none;
+    cursor: pointer;
+    color: rgb(0, 119, 204);
+    width: fit-content;
+}
+button:hover {
+    background: rgb(0, 119, 204);
+    color: #f4f4f4;
+}
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#toast {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+}
+.form-control {
+    line-height: 20px;
+    text-align: center;
+    padding: 0;
+}
+.form-control button{
+    font-size: 20px;
+}
+.app-controls-modal {
+    display: inline;
+}
+.app-controls-modal button{
+    background: transparent;
+}
