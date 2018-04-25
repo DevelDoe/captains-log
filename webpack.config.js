@@ -10,11 +10,13 @@ require('dotenv').config()
 const path = require('path')
 const WriteFilePlugin = require('write-file-webpack-plugin')
 
+console.log("Mode: ", process.env.MODE)
+
 module.exports = {
     entry: "./src/root.js",
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: "/dist/",
+        path: path.resolve(__dirname, '../dist'),
+        publicPath: "../dist/",
         filename: 'bundle.js'
     },
 
@@ -23,7 +25,7 @@ module.exports = {
     watch: true,
 
     devServer: {
-        contentBase: path.join(__dirname, "dist"),
+        contentBase: path.join(__dirname, "../dist"),
         compress: true,
         inline: true,
         port: 3001
@@ -71,5 +73,27 @@ module.exports = {
 
     plugins: [
         new WriteFilePlugin()
-    ]
+    ],
+
+    devtool: '#eval-source-map'
+}
+
+if( process.env.NODE_ENV === 'production' ) {
+    module.exports.devtool = '#source-map'
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new webpack.DefinePlugin({
+          'process.env': {
+            NODE_ENV: '"production"'
+          }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+          sourceMap: false,
+          compress: {
+            warnings: false
+          }
+        }),
+        new webpack.LoaderOptionsPlugin({
+          minimize: true
+        })
+    ])
 }

@@ -92,9 +92,6 @@ export default {
         }
     },
     location_filters: [
-        'System',
-        'Star',
-        'Planet',
         'Moon',
         'Station',
         'Outpost'

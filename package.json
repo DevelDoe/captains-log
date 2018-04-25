@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pack": "webpack --config webpack.config.js",
+    "build": "cpx ./dist/bundle.js ../dist && cross-env NODE_ENV=production webpack --progress --hide-modules",
     "dev": "webpack-dev-server"
   },
   "repository": {
@@ -20,12 +20,14 @@
   },
   "homepage": "https://github.com/DevelDoe/devel-crud#readme",
   "dependencies": {
-    "bignumber.js": "^6.0.0",
-    "devel-style": "^3.1.0",
-    "dotenv": "^5.0.1",
-    "morgan": "^1.9.0",
-    "rotating-file-stream": "^1.3.6",
-    "vue": "^2.5.13"
+      "ajv": "^6.4.0",
+      "ajv-keywords": "^3.1.0",
+      "bignumber.js": "^6.0.0",
+      "cross-env": "^5.1.4",
+      "devel-style": "^3.1.0",
+      "dotenv": "^5.0.1",
+      "rimraf": "^2.6.2",
+      "vue": "^2.5.13"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -35,6 +37,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "body-parser": "^1.18.2",
+    "cpx": "^1.5.0",
     "cors": "^2.8.4",
     "css-loader": "^0.28.8",
     "express": "^4.16.3",
@@ -48,7 +51,10 @@
     "vue-template-compiler": "^2.5.13",
     "webpack": "^4.5.0",
     "webpack-cli": "^2.0.14",
+    "webpack-dev-middleware": "^1.9.0",
     "webpack-dev-server": "^3.1.3",
+    "webpack-hot-middleware": "^2.14.0",
+    "webpack-module-hot-accept": "^1.0.4",
     "write-file-webpack-plugin": "^4.2.0"
   }
 }
