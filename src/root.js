@@ -13,7 +13,8 @@ const router = new VueRouter({
 
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
-Vue.http.options.root = 'http://localhost:4000'
+// Vue.http.options.root = 'http://localhost:4000'
+Vue.http.options.root = 'http://35.189.243.23:4000'
 
 import Plugins from './utils/plugins.js'
 Vue.use(Plugins)

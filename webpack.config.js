@@ -8,6 +8,7 @@
  */
 require('dotenv').config()
 const path = require('path')
+const webpack = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
 
 console.log("Mode: ", process.env.MODE)
@@ -84,12 +85,6 @@ if( process.env.NODE_ENV === 'production' ) {
         new webpack.DefinePlugin({
           'process.env': {
             NODE_ENV: '"production"'
-          }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-          sourceMap: false,
-          compress: {
-            warnings: false
           }
         }),
         new webpack.LoaderOptionsPlugin({
