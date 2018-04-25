@@ -90,6 +90,13 @@ export default {
                 required: false
             }
         }
-
-    }
+    },
+    location_filters: [
+        'System',
+        'Star',
+        'Planet',
+        'Moon',
+        'Station',
+        'Outpost'
+    ]
 }

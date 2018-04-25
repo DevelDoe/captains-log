@@ -1,5 +1,5 @@
 <template>
-    <div id="locations-index">
+    <div id="locations">
         <DevelModal modal="addLocation">
             <div slot="header"> <h2>Add Location</h2> </div>
             <div slot="bread">
@@ -22,12 +22,15 @@
             </div>
         </DevelModal>
         <header> <h2>Locations</h2> </header>
-        <section class="main">
-            <LocationsLocation v-for='( o, i) in sortedLocationsList' :key="i"
-                :location="o"
-                :index="i"
-                :type="o.type"
-            />
+        <section class="main group">
+            <div class="locations">
+                <LocationsLocation v-for='( o, i) in fltLoc' :key="i"
+                    :location="o"
+                    :index="i"
+                    :type="o.type"
+                />
+            </div>
+            <FltrLocation :meta_data='meta_data' :filterLocations="filterLocations" />
         </section>
         <footer>
             <div class="form-control">
@@ -40,6 +43,7 @@
 
 <script>
 import LocationsLocation from './LocationsLocation.vue'
+import FltrLocation from './Filters/Filters.vue'
 
 export default {
     props: [ 'location_types', 'locations', 'meta_data' ],
@@ -49,10 +53,24 @@ export default {
                 location_name: '',
                 location_type: '',
                 location_id: '',
-            }
+            },
+            filterLocations: [ 'Moon', 'Station' ]
         }
     },
-    computed: { sortedLocationsList () { return this.mixKeySrt(this.locations, 'name') } },
+    computed: {
+        srtLocationsLst () { return this.mixKeySrt(this.locations, 'name') },
+        fltLoc () {
+            return this.locations.filter( loc => {
+                if ( !this.filterLocations.length ) {
+                    return true
+                } else {
+                    return this.filterLocations.find( fLoc => {
+                        return loc.type === fLoc
+                    })
+                }
+            })
+        },
+    },
     methods: {
         openModal( modal ) {
             this.$bus.$emit('toggleModal', modal )
@@ -73,9 +91,21 @@ export default {
             }
         }
     },
-    components: { LocationsLocation }
+    mounted() {
+        this.$bus.$on('filter', ( filter, location, checked ) => {
+            this.mixFltrBy( filter, location, checked )
+        })
+    },
+    components: {
+        LocationsLocation,
+        FltrLocation
+    }
 }
 </script>
 
 <style lang="css">
+    .locations {
+        float: left;
+        width: 80%;
+    }
 </style>

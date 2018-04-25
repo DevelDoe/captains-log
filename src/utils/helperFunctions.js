@@ -74,9 +74,20 @@ const helperFunctions = {
                     }
                 },
 
-                mixFormatPrice(value) {
+                mixFormatPrice( value ) {
                     return (value/1).toFixed(2)
                 },
+
+                mixFltrBy( filter, name, checked ) {
+                    if( checked ) {
+                        this[filter].push( name )
+                    } else {
+                        let index = this[filter].indexOf(name)
+                        this[filter].splice(index, 1)
+                    }
+                },
+
+
             }
         })
     }
