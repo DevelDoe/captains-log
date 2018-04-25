@@ -21,7 +21,7 @@ var Resource    = require('./data/models/resource')
 var Location    = require('./data/models/location')
 var Mission     = require('./data/models/mission')
 var Character   = require('./data/models/character')
-var Entity      = require('./data/models/entity')
+var Organisation      = require('./data/models/organisation')
 
 // ################# SETUP ####################
 var port = process.env.PORT || 4000
@@ -265,7 +265,8 @@ router.route('/missions/:missions_id')
 router.route('/characters')
     .post(function(req, res) {
        var character = new Character()
-       character.name     = req.body.name
+       character.name        = req.body.name
+       character.description         = req.body.description
        character.location_id = req.body.location_id
 
        character.save(function(err) {
@@ -304,6 +305,8 @@ router.route('/characters/:character_id')
             }
 
             character.name = req.body.name
+            character.description         = req.body.description
+            character.location_id = req.body.location_id
 
             character.save(function (err) {
                 if (err) {
@@ -325,66 +328,70 @@ router.route('/characters/:character_id')
            res.json({ model: 'character' })
         })
     })
-// ################# ENTITIES ####################
-router.route('/entities')
+// ################# ORGANISATIONS ####################
+router.route('/organisations')
     .post(function(req, res) {
-        var entity = new Entity()
-        entity.name     = req.body.name
+        var organisation = new Organisation()
+        organisation.name     = req.body.name
+        organisation.description = req.body.description
+        organisation.location_id = req.body.location_id
 
-        entity.save(function(err) {
+        organisation.save(function(err) {
             if (err) {
                 error(res, err)
                 return
             }
-            res.json({ model: 'entity', _id: entity._id })
+            res.json({ model: 'organisation', _id: organisation._id })
         })
     })
 .get(function(req, res) {
-    Entity.find(function(err, entities) {
+    Organisation.find(function(err, organisations) {
         if (err) {
             error(res, err)
             return
         }
-        res.json(entities)
+        res.json(organisations)
     })
 })
-router.route('/entities/:entity_id')
+router.route('/organisations/:organisation_id')
 .get(function (req, res) {
-    Entit.findById(req.params.entity_id, function (err, entity) {
+    Entit.findById(req.params.organisation_id, function (err, organisation) {
         if (err) {
             error(res, err)
             return
         }
-        res.json(entity)
+        res.json(organisation)
     })
 })
 .put(function (req, res) {
-    Entity.findById(req.params.entity_id, function (err, entity) {
+    Organisation.findById(req.params.organisation_id, function (err, organisation) {
         if (err) {
             error(res, err)
             return
         }
 
-        entity.name = req.body.name
+        organisation.name = req.body.name
+        organisation.description = req.body.description
+        organisation.location_id = req.body.location_id
 
-        entity.save(function (err) {
+        organisation.save(function (err) {
             if (err) {
                 error(res, err)
                 return
             }
-           res.json({ model: 'entity' })
+           res.json({ model: 'organisation' })
         })
     })
 })
 .delete(function (req, res) {
-    Entity.remove({
-       _id: req.params.entity_id
-    }, function (err, entity) {
+    Organisation.remove({
+       _id: req.params.organisation_id
+    }, function (err, organisation) {
        if (err) {
            error(res, err)
            return
        }
-       res.json({ model: 'entity' })
+       res.json({ model: 'organisation' })
     })
 })
 

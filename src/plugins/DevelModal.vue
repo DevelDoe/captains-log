@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import { bus } from '../root'
 export default {
     name: 'DevelModal',
     props: [ 'modal' ],
@@ -30,7 +29,7 @@ export default {
         }
     },
     created () {
-        bus.$on('toggleModal', modal => {
+        this.$bus.$on('toggleModal', modal => {
             if ( this.modal !== undefined && modal === this.modal ) {
                 this.open = !this.open
             }
@@ -43,7 +42,7 @@ export default {
     .d-modal {
         display: none;
         position: fixed; left: 0; top: 0; height: 100%; width: 100%; z-index: 1; overflow: auto;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0,0,0,0.7);
     }
     .d-modal-open {
         display: block;

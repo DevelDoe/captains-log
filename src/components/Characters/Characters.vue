@@ -1,59 +1,73 @@
 <template lang="html">
     <div class="characters">
-        <header>
-            <h2>Non Playing Characters</h2>
-            <DevelModal btn="add new character">
-                <div slot="header"> <h2>Add Character</h2> </div>
-                <div slot="bread">
-                    <form id="modal-form">
-                        <input type="text" v-model="character.name" placeholder="Name">
-                        <input type="text" v-model="character.location" placeholder="Location">
-                    </form>
+        <DevelModal modal="addCharacter">
+            <div slot="header"> <h2>Add Character</h2> </div>
+            <div slot="bread">
+                <form id="modal-form">
+                    <input type="text" v-model="input.name" placeholder="Name">
+                    <textarea v-model="input.description" rows="8" cols="80" placeholder="Biography"></textarea>
+                    <select v-model="input.location_id">
+                        <option v-for="( o, i) in srtLocLst" :value="o._id">{{ o.name }}</option>
+                    </select>
+                </form>
+            </div>
+            <div slot="footer">
+                <div class="form-control">
+                    <button type="button" @click="save('addCharacter')">save</button>
                 </div>
-                <div slot="footer">
-                    <div class="form-control">
-                        <button type="button" @click="save">save</button>
-                    </div>
-                </div>
-            </DevelModal>
-        </header>
+            </div>
+        </DevelModal>
+
+        <header> <h2>Non Playing Characters</h2> </header>
         <section class="main">
-            <CharactersCharacter v-for="(o,i) in sortedCharactersList" :key="i"
+            <CharactersCharacter v-for="(o,i) in srtCharLst" :key="i"
                 :character="o"
                 :index="i"
             ></CharactersCharacter>
         </section>
+        <footer>
+            <div class="form-control">
+                <button @click="openModal('addCharacter')">add new resource</button>
+            </div>
+        </footer>
     </div>
 </template>
 
 <script>
-import { bus } from '../../root'
 import CharactersCharacter from './CharactersCharacter.vue'
 export default {
-    props: [ 'characters' ],
+    props: [ 'characters', 'locations', 'meta_data' ],
     data () {
         return {
-            character: {
+            input: {
                 name: '',
-                location: ''
-            },
-            characterValidation: {
-                name: true,
-                location: false
+                description: '',
+                location_id: ''
             }
         }
     },
     computed: {
-        sortedCharactersList () { return this.mixinsSortList( this.characters ) || null}
+        srtCharLst() { return this.mixKeySrt( this.characters, 'name' ) || null },
+        srtLocLst() { return this.mixKeySrt( this.locations, 'name' ) || null }
     },
     methods: {
-            save () {
-                const success = this.mixinsToggleModal(this.character, this.characterValidation, 'characters')
-                if (success) {
-                    this.character.name = ''
-                    this.character.location = ''
-                }
+        openModal( modal ) {
+            this.$bus.$emit('toggleModal', modal )
+        },
+        save ( modal ) {
+            const character = {
+                name: this.input.name,
+                description:  this.input.description,
+                location_id: this.input.location_id
             }
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.character, character)
+            if ( valid ) {
+                this.apiSave( 'characters', character, modal  )
+                this.input.name = ''
+                this.input.description = ''
+                this.input.location_id = ''
+            }
+        }
     },
     components: {
         CharactersCharacter

@@ -4,7 +4,7 @@
             resource_id: resource._id,
             resource_index: index
         }}">
-            <h4>{{ resource.name }}</h4>
+            <span>{{ resource.name }}</span>
         </router-link>
     </div>
 </template>

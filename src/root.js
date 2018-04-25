@@ -21,10 +21,14 @@ Vue.use(Plugins)
 import helperFunctions from './utils/helperFunctions.js'
 Vue.use(helperFunctions)
 
+import api from './utils/api.js'
+Vue.use(api)
+
 import { bigNumber } from 'bignumber.js'
 Object.defineProperty( Vue.prototype, '$bigNumber', { get() { return this.$root.bigNumber } } )
 
-export const bus = new Vue()
+const bus = new Vue()
+Object.defineProperty(Vue.prototype, '$bus', { get() { return this.$root.bus } })
 
 const root = new Vue({
     el: '#app',
@@ -39,9 +43,10 @@ const root = new Vue({
             ],
             missions: [],
             characters: [],
-            entities: [],
+            organisations: [],
             response: '',
-            meta_data: {}
+            meta_data: {},
+            bus
         }
         return data
     },
@@ -57,8 +62,9 @@ const root = new Vue({
         this.$http.get('locations/').then(res => { this.locations = res.data })
         this.$http.get('characters/').then(res => { this.characters = res.data })
         this.$http.get('missions/').then(res => { this.missions = res.data })
-        this.$http.get('entities/').then(res => { this.entities = res.data })
-    }
+        this.$http.get('organisations/').then(res => { this.organisations = res.data })
+    },
+    mounted () { console.log('Check for duplicate names;filter button locations by type;filter search field') }
 })
 
 import metaData from '../data/meta.js'

@@ -1,23 +1,26 @@
-import { bus } from '../root'
-
 const helperFunctions = {
     install(Vue, options) {
         Vue.mixin({
             methods: {
-                mixinsSortList(list) {
-                    return list.sort((a, b) => {
-                        const name_a = a.name.toUpperCase()
-                        const name_b = b.name.toUpperCase()
-                        if ( name_a < name_b ) return - 1
-                        if ( name_a > name_b ) return 1
-                        return 0
-                    })
+
+                mixKeySrt( arr, k ) {
+
+                    Array.prototype.keySort = function(key, desc){
+                        this.sort(function(a, b) {
+                            var result = desc ? (a[key] < b[key]) : (a[key] > b[key])
+                            return result ? 1 : -1
+                        })
+                        return this
+                    }
+                    return arr.keySort(k)
                 },
-                mixinsSortNumbers(numbers) {
+
+                mixNumSrt(numbers) {
                     return list.sort((a, b) => {
                         return a - b;
                     })
                 },
+
                 empty(data) {
 
                     if (typeof(data) == 'number' || typeof(data) == 'boolean') return false
@@ -31,15 +34,8 @@ const helperFunctions = {
                     return count == 0
                 },
 
-                mixinsToggleModal() {
+                mixinsValidate() {
                     const args = (arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments))
-
-                    const modal = args.shift() || undefined
-
-                    if(!args[0]) {
-                        bus.$emit('toggleModal', modal )
-                        return true
-                    }
 
                     const validationRules = args.shift() || null
                     const data            = args.shift() || null
@@ -68,15 +64,19 @@ const helperFunctions = {
                     })
 
                     if (invalid) {
-                        bus.$emit('setResponse', errorMessage.join(', ') )
-                        setTimeout(()=> { bus.$emit('setResponse', '') }, 4000)
+                        this.$bus.$emit('setResponse', errorMessage.join(', ') )
+                        setTimeout(()=> { this.$bus.$emit('setResponse', '') }, 4000)
+                        return errorMessage
                     }
 
                     if (!invalid) {
-                        bus.$emit('toggleModal', modal)
-                        return true
+                        return 'true'
                     }
-                }
+                },
+
+                mixFormatPrice(value) {
+                    return (value/1).toFixed(2)
+                },
             }
         })
     }

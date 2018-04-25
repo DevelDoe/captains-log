@@ -14,8 +14,8 @@ import MissionDetails from '../components/Missions/MissionDetails.vue'
 import Characters from '../components/Characters/Characters.vue'
 import CharacterDetails from '../components/Characters/CharacterDetails.vue'
 
-import Entities from '../components/Entities/Entities.vue'
-import EntityDetails from '../components/Entities/EntityDetails.vue'
+import Organisations from '../components/Organisations/Organisations.vue'
+import OrganisationDetails from '../components/Organisations/OrganisationDetails.vue'
 
 export default [{
         path: '/',
@@ -52,7 +52,7 @@ export default [{
     },{
         path: '/mission-details',
         component: MissionDetails,
-        name: 'mission-details'
+        name: 'Mission'
     },{
         path: '/characters',
         component: Characters,
@@ -60,14 +60,14 @@ export default [{
     },{
         path: '/character-details',
         component: CharacterDetails,
-        name: 'character-details'
+        name: 'Character'
     },{
-        path: '/entities',
-        component: Entities,
-        name: 'entities'
+        path: '/organisations',
+        component: Organisations,
+        name: 'organisations'
     },{
-        path: '/entity-details',
-        component: EntityDetails,
-        name: 'entity-details'
+        path: '/organisation-details',
+        component: OrganisationDetails,
+        name: 'Organisation'
     }
 ]

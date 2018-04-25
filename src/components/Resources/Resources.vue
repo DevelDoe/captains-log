@@ -4,7 +4,7 @@
             <div slot="header"> <h2>Add Resource</h2> </div>
             <div slot="bread">
                 <form id="modal-form">
-                    <input type="text" v-model="resource.name" placeholder="Name">
+                    <input type="text" v-model="input.name" placeholder="Name">
                 </form>
             </div>
             <div slot="footer">
@@ -15,9 +15,9 @@
         </DevelModal>
         <header> <h2>Resources</h2> </header>
         <section class="main">
-            <ResourcesResource v-for="(resource, index) in resources" :key="resource.id"
-            :resource="resource"
-            :index="index"
+            <ResourcesResource v-for="(o, i) in sortedResourcesList" :key="i"
+            :resource="o"
+            :index="i"
         />
         </section>
         <footer>
@@ -29,30 +29,28 @@
 </template>
 
 <script>
-import { bus } from '../../root'
 import ResourcesResource from './ResourcesResource.vue'
 export default {
     props: [ 'resources', 'meta_data' ],
     data() {
         return {
-            resource: { name: '' }
+            input: { name: '' }
         }
     },
+    computed: { sortedResourcesList () { return this.mixKeySrt( this.resources, 'name' ) } },
     methods: {
-        openModal(modal) {
-            this.mixinsToggleModal(modal)
+        openModal( modal ) {
+            this.$bus.$emit('toggleModal', modal )
         },
-        save (modal) {
-            const valid = this.mixinsToggleModal(modal, this.meta_data.validation_rules.resource, this.resource)
-            if (valid) {
-                bus.$emit('save', 'resources', this.resource )
-                this.resource.name = ''
+        save( modal ) {
+            const resource = {
+                name: this.input.name
             }
-        }
-    },
-    computed: {
-        sortedResourcesList () {
-            return this.mixinsSortList(this.resources)
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.resource, resource )
+            if( valid === 'true' ) {
+                this.apiSave( 'resources', resource, modal  )
+                this.input.name = ''
+            }
         }
     },
     components: {

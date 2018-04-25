@@ -51,14 +51,45 @@ export default {
                 type: 'Number',
                 required: true
             },
-            giver: {
+            giver_id: {
                 type: 'String',
                 required: true
             },
             objectives: {
-                type: 'Array',
+                description: {
+                    type: 'String',
+                    required: true
+                }
+            }
+        },
+        character: {
+            name: {
+                type: 'String',
                 required: true
+            },
+            description: {
+                type: 'String',
+                required: false
+            },
+            location_id: {
+                type: 'String',
+                required: false
+            }
+        },
+        organisation: {
+            name: {
+                type: 'String',
+                required: true
+            },
+            description: {
+                type: 'String',
+                required: false
+            },
+            location_id: {
+                type: 'String',
+                required: false
             }
         }
+
     }
 }

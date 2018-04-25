@@ -19,9 +19,13 @@
         <div class="backBtn"><button @click="$router.go(-1)">go back</button></div>
         <header> <h2>{{ resource.name }}</h2> </header>
         <section class="main">
-            <div id="best-margin">
+            <div id="resource-locations">
                 <ul>
-                    <li v-for="( o, i ) in comLocations"> {{ o.location }}:</strong>  SELL {{ o.sell }} BUY {{ o.buy }} </li>
+                    <li v-for="( o, i ) in comLocations">
+                        <strong>{{ o.location }}:</strong>
+                        <span v-if="o.sell">SELL {{ o.sell }}</span>
+                        <span v-if="o.buy">BUY {{ o.buy }}</span>
+                    </li>
                 </ul>
             </div>
         </section>
@@ -35,7 +39,6 @@
 </template>
 
 <script>
-import { bus } from '../../root'
 export default {
     props: [ 'resources', 'meta_data', 'locations' ],
     data () {
@@ -61,14 +64,14 @@ export default {
     },
     methods: {
         openModal(modal) {
-            this.mixinsToggleModal(modal)
+            this.$bus.$emit('toggleModal', modal )
         },
-        update(modal) {
-            const valid = this.mixinsToggleModal(modal, this.meta_data.validation_rules.resource, this.resource)
-            if (valid) bus.$emit('update', 'resources', this.resource, this.resource_id )
+        update( modal ) {
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.resource, this.resource)
+            if( valid === 'true' ) this.apiUpdate( 'resources', this.resource, this.resource_id, modal )
         },
         del() {
-            bus.$emit('delete', 'resources', this.resource_id, this.resource_index)
+            this.apiDelete( 'resources', this.resource_id, this.resource_index)
         },
     }
 }

@@ -41,7 +41,6 @@
 <script>
 import LocationsLocation from './LocationsLocation.vue'
 
-import { bus } from '../../root'
 export default {
     props: [ 'location_types', 'locations', 'meta_data' ],
     data () {
@@ -53,20 +52,22 @@ export default {
             }
         }
     },
-    computed: { sortedLocationsList () { return this.mixinsSortList(this.locations) } },
+    computed: { sortedLocationsList () { return this.mixKeySrt(this.locations, 'name') } },
     methods: {
         openModal( modal ) {
-            this.mixinsToggleModal( modal )
+            this.$bus.$emit('toggleModal', modal )
         },
         save( modal ) {
-            const location = {}
-            location.name = this.inputs.location_name
-            location.type = this.inputs.location_type
-            location.resources = []
-            location.location_id = this.inputs.location_id
-            const valid = this.mixinsToggleModal( modal, this.meta_data.validation_rules.location, location)
-            if (valid) {
-                bus.$emit( 'save', 'locations', location )
+            const location = {
+                name: this.inputs.location_name,
+                type: this.inputs.location_type,
+                resources: [],
+                location_id: this.inputs.location_id
+            }
+
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.location, location )
+            if( valid === 'true' ) {
+                this.apiSave( 'locations', location, modal )
                 this.inputs.location_name = ''
                 this.inputs.location_type = ''
             }

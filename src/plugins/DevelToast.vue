@@ -13,3 +13,9 @@ export default {
     props: [ 'response' ]
 }
 </script>
+
+<style media="screen">
+    #toast {
+        z-index: 1
+    }
+</style>
