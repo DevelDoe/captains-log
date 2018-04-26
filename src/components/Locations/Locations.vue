@@ -24,7 +24,12 @@
         <header> <h2>Locations</h2> </header>
         <section class="main group">
             <div class="locations">
-                <LocationsLocation v-for='( o, i) in fltLoc' :key="i"
+                <div class="filter-search">
+                    <form>
+                        <input v-model="filter_search" placeholder="search">
+                    </form>
+                </div>
+                <LocationsLocation v-for='( o, i) in filterSearch' :key="i"
                     :location="o"
                     :index="i"
                     :type="o.type"
@@ -54,10 +59,14 @@ export default {
                 location_type: '',
                 location_id: '',
             },
-            filterLocations: [ 'Moon', 'Station' ]
+            filterLocations: [ 'Moon', 'Station' ],
+            filter_search: ''
         }
     },
     computed: {
+        filterSearch() { return this.fltLoc.filter( location => {
+            return location.name.toLowerCase().indexOf( this.filter_search.toLowerCase() ) > - 1
+        })},
         srtLocationsLst () { return this.mixKeySrt(this.locations, 'name') },
         fltLoc () {
             return this.locations.filter( loc => {

@@ -20,7 +20,12 @@
 
         <header> <h2>Non Playing Characters</h2> </header>
         <section class="main">
-            <CharactersCharacter v-for="(o,i) in srtCharLst" :key="i"
+            <div class="filter-search">
+                <form>
+                    <input v-model="filter_search" placeholder="search">
+                </form>
+            </div>
+            <CharactersCharacter v-for="(o,i) in filterSearch" :key="i"
                 :character="o"
                 :index="i"
             ></CharactersCharacter>
@@ -43,10 +48,14 @@ export default {
                 name: '',
                 description: '',
                 location_id: ''
-            }
+            },
+            filter_search: ''
         }
     },
     computed: {
+        filterSearch() { return this.srtCharLst.filter( character => {
+            return character.name.toLowerCase().indexOf( this.filter_search.toLowerCase() ) > - 1
+        })},
         srtCharLst() { return this.mixKeySrt( this.characters, 'name' ) || null },
         srtLocLst() { return this.mixKeySrt( this.locations, 'name' ) || null },
     },

@@ -15,7 +15,12 @@
         </DevelModal>
         <header> <h2>Resources</h2> </header>
         <section class="main">
-            <ResourcesResource v-for="(o, i) in sortedResourcesList" :key="i"
+            <div class="filter-search">
+                <form>
+                    <input v-model="filter_search" placeholder="search">
+                </form>
+            </div>
+            <ResourcesResource v-for="(o, i) in filterSearch" :key="i"
             :resource="o"
             :index="i"
         />
@@ -34,10 +39,15 @@ export default {
     props: [ 'resources', 'meta_data' ],
     data() {
         return {
-            input: { name: '' }
+            input: { name: '' },
+            filter_search: ''
         }
     },
-    computed: { sortedResourcesList () { return this.mixKeySrt( this.resources, 'name' ) } },
+    computed: {
+        filterSearch() { return this.sortedResourcesList.filter( resource => {
+            return resource.name.toLowerCase().indexOf( this.filter_search.toLowerCase() ) > - 1
+        })},
+        sortedResourcesList () { return this.mixKeySrt( this.resources, 'name' ) } },
     methods: {
         openModal( modal ) {
             this.$bus.$emit('toggleModal', modal )

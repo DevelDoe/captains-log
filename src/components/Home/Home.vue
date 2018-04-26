@@ -2,8 +2,13 @@
     <div id="home">
         <div class="trade-routes">
             <h2>Trade Routes</h2>
+            <div class="filter-search">
+                <form>
+                    <input v-model="filter_search" placeholder="search">
+                </form>
+            </div>
             <ul>
-                <li v-for="( r, i ) in comResources">
+                <li v-for="( r, i ) in filterSearch">
                     {{ r.name }}:
                     <span v-for="(trade_route, i) in r.trade_routes">
                         <div v-if="trade_route.sell.length">
@@ -31,7 +36,15 @@
 // import HomeResourceBuy from './HomeResourceBuy.vue'
 export default {
     props: [ 'resources', 'locations' ],
+    data() {
+        return {
+            filter_search: ''
+        }
+    },
     computed: {
+        filterSearch() { return this.comResources.filter( resource => {
+            return resource.name.toLowerCase().indexOf( this.filter_search.toLowerCase() ) > - 1
+        })},
         comResources() {
             let comResources = []
             this.resources.forEach( resource => {

@@ -20,7 +20,12 @@
 
         <header> <h2>Organisations</h2> </header>
         <section class="main">
-            <OrganisationsOrganisation v-for="( o, i ) in srtOrgLst" :key="i"
+            <div class="filter-search">
+                <form>
+                    <input v-model="filter_search" placeholder="search">
+                </form>
+            </div>
+            <OrganisationsOrganisation v-for="( o, i ) in filterSearch" :key="i"
                 :organisation="o"
                 :index="i"
 
@@ -44,10 +49,14 @@ export default {
                 name: '',
                 description: '',
                 location_id: ''
-            }
+            },
+            filter_search: ''
         }
     },
     computed: {
+        filterSearch() { return this.srtOrgLst.filter( organisation => {
+            return organisation.name.toLowerCase().indexOf( this.filter_search.toLowerCase() ) > - 1
+        })},
         srtOrgLst() { return this.mixKeySrt( this.organisations, 'name' ) || null },
         srtLocLst() { return this.mixKeySrt( this.locations, 'name' ) || null }
     },

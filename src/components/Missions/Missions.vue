@@ -27,7 +27,12 @@
 
         <header> <h2>Missions</h2> </header>
         <section class="main">
-            <MissionsMission v-for="(o,i) in srtMissionLst" :key="i"
+            <div class="filter-search">
+                <form>
+                    <input v-model="filter_search" placeholder="search">
+                </form>
+            </div>
+            <MissionsMission v-for="(o,i) in filterSearch" :key="i"
                 :mission="o"
                 :index="i"
             ></MissionsMission>
@@ -53,10 +58,14 @@ export default {
                 payment: '',
                 giver_id: '',
                 objectives: []
-            }
+            },
+            filter_search: ''
         }
     },
     computed: {
+        filterSearch() { return this.srtMissionLst.filter( misssion => {
+            return misssion.name.toLowerCase().indexOf( this.filter_search.toLowerCase() ) > - 1
+        })},
         srtMissionLst () { return this.mixKeySrt( this.missions, 'name' ) || null },
         charactersAndEntities () { return this.mixKeySrt( this.characters.concat(this.organisations), 'name' ) || null }
     },

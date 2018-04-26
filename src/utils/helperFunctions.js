@@ -49,7 +49,7 @@ const helperFunctions = {
                                         let duplicate = this.isDuplicate( collection, data[key], index )
 
                                         if( duplicate ) {
-
+                                            debugger
                                             invalid = true
                                             errorMessage.push(key.split("_")[0] + ' must be unique. ')
                                         }

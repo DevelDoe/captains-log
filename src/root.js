@@ -73,7 +73,7 @@ const root = new Vue({
         this.$http.get('missions/').then(res => { this.missions = res.data })
         this.$http.get('organisations/').then(res => { this.organisations = res.data })
     },
-    mounted () { console.log('Check for duplicate names;filter search field;settings Page') }
+    mounted () { console.log('filter search field;production;settings Page(release)') }
 })
 
 import metaData from './data/meta.js'
