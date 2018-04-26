@@ -58,7 +58,7 @@ export default {
         save ( modal ) {
             const organisation = {
                 name: this.organisation.name,
-                description:  this.$markdown.render(this.organisation.description),
+                description:  this.organisation.description,
                 location_id: this.organisation.location_id
             }
             const valid = this.mixinsValidate( this.meta_data.validation_rules.organisation, organisation)

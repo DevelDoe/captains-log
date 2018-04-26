@@ -30,7 +30,7 @@
         <section class="main">
             <div v-if="character.description">
                 <h3>Biography</h3>
-                <span v-html="character.description"></span>
+                <span v-html="$markdown.render(character.description)"></span>
             </div>
         </section>
         <footer>
@@ -60,8 +60,15 @@ export default {
             this.apiDelete( 'characters', this.character._id, this.character_index)
         },
         update( modal ) {
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.character, this.character)
-            if( valid === 'true' ) this.apiUpdate( 'characters', this.character, this.character_id, modal )
+            const character = {
+                name: this.character.name,
+                description:  this.$markdown.render(this.character.description),
+                location_id: this.character.location_id
+            }
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.character, character)
+            if( valid === 'true' ) {
+                this.apiUpdate( 'characters', character, this.character_id, modal )
+            }
         }
     },
     computed: {

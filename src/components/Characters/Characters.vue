@@ -48,7 +48,7 @@ export default {
     },
     computed: {
         srtCharLst() { return this.mixKeySrt( this.characters, 'name' ) || null },
-        srtLocLst() { return this.mixKeySrt( this.locations, 'name' ) || null }
+        srtLocLst() { return this.mixKeySrt( this.locations, 'name' ) || null },
     },
     methods: {
         openModal( modal ) {
@@ -57,15 +57,15 @@ export default {
         save ( modal ) {
             const character = {
                 name: this.character.name,
-                description:  this.$markdown.render(this.character.description),
+                description:  this.character.description,
                 location_id: this.character.location_id
             }
             const valid = this.mixinsValidate( this.meta_data.validation_rules.character, character)
             if ( valid === 'true' ) {
                 this.apiSave( 'characters', character, modal  )
-                this.input.name = ''
-                this.input.description = ''
-                this.input.location_id = ''
+                this.character.name        = ''
+                this.character.description = ''
+                this.character.location_id = ''
             }
         }
     },

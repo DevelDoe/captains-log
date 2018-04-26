@@ -29,7 +29,7 @@
         <section class="main">
             <div v-if="organisation.description">
                 <h3>About</h3>
-                <span v-html="organisation.description"></span>
+                <span v-html="$markdown.render(organisation.description)"></span>
             </div>
         </section>
         <footer>

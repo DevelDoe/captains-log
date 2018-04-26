@@ -74,7 +74,7 @@ export default {
             const mission = {
                 name: this.mission.name,
                 type: this.mission.type,
-                description: this.$markdown.render(this.mission.description),
+                description: this.mission.description,
                 payment: this.mission.payment,
                 giver_id: this.mission.giver_id,
                 objectives: this.mission.objectives,
