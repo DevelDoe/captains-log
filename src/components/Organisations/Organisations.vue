@@ -56,9 +56,14 @@ export default {
             this.$bus.$emit('toggleModal', modal )
         },
         save ( modal ) {
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.organisation, this.organisation)
-            if ( valid ) {
-                this.apiSave( 'organisations', this.organisation, modal  )
+            const organisation = {
+                name: this.organisation.name,
+                description:  this.$markdown.render(this.organisation.description),
+                location_id: this.organisation.location_id
+            }
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.organisation, organisation)
+            if ( valid === 'true' ) {
+                this.apiSave( 'organisations', organisation, modal  )
                 this.organisation.name = ''
                 this.organisation.description = ''
                 this.location_id = ''

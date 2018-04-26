@@ -29,7 +29,7 @@
         <section class="main">
             <div v-if="organisation.description">
                 <h3>About</h3>
-                <p>{{ organisation.description }}</p>
+                <span v-html="organisation.description"></span>
             </div>
         </section>
         <footer>

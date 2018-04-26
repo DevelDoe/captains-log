@@ -39,7 +39,8 @@
 
         <section class="main">
             <h4>Description:</h4>
-            <p>{{ mission.description }}</p>
+            <span v-html="mission.description"></span>
+            
             <h4>Objectives:</h4>
             <ul>
                 <li v-for="objective in mission.objectives">{{ objective.description }}</li>

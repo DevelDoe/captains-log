@@ -71,9 +71,17 @@ export default {
             this.mission.objectives.splice(index, 1)
         },
         save ( modal ) {
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.mission, this.mission)
-            if ( valid ) {
-                this.apiSave( 'missions', this.mission, modal  )
+            const mission = {
+                name: this.mission.name,
+                type: this.mission.type,
+                description: this.$markdown.render(this.mission.description),
+                payment: this.mission.payment,
+                giver_id: this.mission.giver_id,
+                objectives: this.mission.objectives,
+            }
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.mission, mission)
+            if ( valid === 'true' ) {
+                this.apiSave( 'missions', mission, modal  )
                 this.mission.name = ''
                 this.mission.type = ''
                 this.mission.description = ''

@@ -4,9 +4,9 @@
             <div slot="header"> <h2>Add Character</h2> </div>
             <div slot="bread">
                 <form id="modal-form">
-                    <input type="text" v-model="input.name" placeholder="Name">
-                    <textarea v-model="input.description" rows="8" cols="80" placeholder="Biography"></textarea>
-                    <select v-model="input.location_id">
+                    <input type="text" v-model="character.name" placeholder="Name">
+                    <textarea v-model="character.description" rows="8" cols="80" placeholder="Biography"></textarea>
+                    <select v-model="character.location_id">
                         <option v-for="( o, i) in srtLocLst" :value="o._id">{{ o.name }}</option>
                     </select>
                 </form>
@@ -39,7 +39,7 @@ export default {
     props: [ 'characters', 'locations', 'meta_data' ],
     data () {
         return {
-            input: {
+            character: {
                 name: '',
                 description: '',
                 location_id: ''
@@ -56,12 +56,12 @@ export default {
         },
         save ( modal ) {
             const character = {
-                name: this.input.name,
-                description:  this.input.description,
-                location_id: this.input.location_id
+                name: this.character.name,
+                description:  this.$markdown.render(this.character.description),
+                location_id: this.character.location_id
             }
             const valid = this.mixinsValidate( this.meta_data.validation_rules.character, character)
-            if ( valid ) {
+            if ( valid === 'true' ) {
                 this.apiSave( 'characters', character, modal  )
                 this.input.name = ''
                 this.input.description = ''

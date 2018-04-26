@@ -30,7 +30,7 @@
         <section class="main">
             <div v-if="character.description">
                 <h3>Biography</h3>
-                <p>{{ character.description }}</p>
+                <span v-html="character.description"></span>
             </div>
         </section>
         <footer>
