@@ -79,7 +79,7 @@ export default {
                 giver_id: this.mission.giver_id,
                 objectives: this.mission.objectives,
             }
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.mission, mission)
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.mission, mission, 'missions')
             if ( valid === 'true' ) {
                 this.apiSave( 'missions', mission, modal  )
                 this.mission.name = ''

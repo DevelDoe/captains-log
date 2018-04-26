@@ -61,7 +61,7 @@ export default {
                 description:  this.organisation.description,
                 location_id: this.organisation.location_id
             }
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.organisation, organisation)
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.organisation, organisation, 'organisations')
             if ( valid === 'true' ) {
                 this.apiSave( 'organisations', organisation, modal  )
                 this.organisation.name = ''

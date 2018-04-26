@@ -83,7 +83,7 @@ export default {
                 location_id: this.inputs.location_id
             }
 
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.location, location )
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.location, location, 'locations' )
             if( valid === 'true' ) {
                 this.apiSave( 'locations', location, modal )
                 this.inputs.location_name = ''

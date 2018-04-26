@@ -85,8 +85,8 @@ export default {
             this.$bus.$emit('toggleModal', modal )
         },
         update( modal ) {
-            const valid = this.mixinsValidate(  this.meta_data.validation_rules.location, this.location)
-            if ( valid ) this.apiUpdate( 'locations', this.location, this.location_id, modal )
+            const valid = this.mixinsValidate(  this.meta_data.validation_rules.location, this.location, 'locations', this.location_index)
+            if ( valid === 'true' ) this.apiUpdate( 'locations', this.location, this.location_id, modal )
         },
         addLocation ( modal ) {
             const location = {
@@ -94,7 +94,7 @@ export default {
                 type: this.input.location_type,
                 location_id: this.location_id
             }
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.location, location)
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.location, location, 'locations')
             if( valid === 'true' ) {
                 this.locationLocations.push(location)
                 this.apiSave( 'locations', location, modal)

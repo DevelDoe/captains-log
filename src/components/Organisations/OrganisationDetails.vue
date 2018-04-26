@@ -58,7 +58,7 @@ export default {
             this.apiDelete( 'organisations', this.organisation_id, this.organisation_index)
         },
         update( modal ) {
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.organisation, this.organisation)
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.organisation, this.organisation, 'organisations', this.organisation_index)
             if( valid === 'true' ) this.apiUpdate( 'organisations', this.organisation, this.organisation_id, modal )
         }
     },

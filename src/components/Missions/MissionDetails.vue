@@ -80,8 +80,8 @@ export default {
             this.apiDelete( 'missions', this.mission_id, this.mission_index)
         },
         update( modal ) {
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.mission, this.mission)
-            debugger
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.mission, this.mission, 'missions', this.mission_index)
+
             if ( valid === 'true') this.apiUpdate( 'missions', this.mission, this.mission_id, modal )
         }
     },

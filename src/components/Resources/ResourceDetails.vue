@@ -6,7 +6,7 @@
             </div>
             <div slot="bread">
                 <form id="modal-form">
-                    <input type="text" v-model="resource.name" placeholder="Name">
+                    <input type="text" v-model="resource.name" placeholder="Name" />
                 </form>
             </div>
             <div slot="footer">
@@ -44,7 +44,7 @@ export default {
     data () {
         return {
             resource_index      : this.$route.query.resource_index,
-            resource_id         : this.$route.query.resource_id
+            resource_id         : this.$route.query.resource_id,
         }
     },
     computed: {
@@ -67,12 +67,13 @@ export default {
             this.$bus.$emit('toggleModal', modal )
         },
         update( modal ) {
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.resource, this.resource)
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.resource, this.resource, 'resources', this.resource_index)
             if( valid === 'true' ) this.apiUpdate( 'resources', this.resource, this.resource_id, modal )
         },
         del() {
             this.apiDelete( 'resources', this.resource_id, this.resource_index)
         },
-    }
+    },
+
 }
 </script>

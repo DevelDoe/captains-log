@@ -27,6 +27,8 @@ const helperFunctions = {
                     const validationRules = args.shift() || null
                     const data            = args.shift() || null
                     const collection      = args.shift() || null
+                    const index           = args.shift() || false
+
                     let invalid = false
                     let errorMessage = []
 
@@ -43,8 +45,11 @@ const helperFunctions = {
 
                                 if( validationRules[key].unique ) {
                                     if( !invalid ) {
-                                        let duplicate = this.isDuplicate(collection, data[key])
+
+                                        let duplicate = this.isDuplicate( collection, data[key], index )
+
                                         if( duplicate ) {
+
                                             invalid = true
                                             errorMessage.push(key.split("_")[0] + ' must be unique. ')
                                         }
@@ -66,6 +71,7 @@ const helperFunctions = {
                     })
 
                     if (invalid) {
+
                         this.$bus.$emit('setResponse', errorMessage.join(', ') )
                         setTimeout(()=> { this.$bus.$emit('setResponse', '') }, 4000)
                         return errorMessage
@@ -89,12 +95,17 @@ const helperFunctions = {
                     return count == 0
                 },
 
-                isDuplicate(collection, value ) {
+                isDuplicate(collection, value, index ) {
 
-                    var names = this[collection].map(function(item){ return item.name.toLowerCase() })
+                    var names = this[collection].map(function(item){
+                        return item.name.toLowerCase()
+                    })
+
+                    if( index ) names.splice(index, 1)
+
                     var duplicate = names.some(function(name){
                         return name === value.toLowerCase()
-                    });
+                    })
                     return duplicate
                 },
 

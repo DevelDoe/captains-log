@@ -105,8 +105,8 @@ export default {
             this.$bus.$emit('toggleModal', modal )
         },
         onUpdate( modal ) {
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.location, this.location)
-            if ( valid ) this.apiUpdate( 'locations', this.location, this.location_id, modal )
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.location, this.location, 'locations', this.location_index)
+            if ( valid === 'true' ) this.apiUpdate( 'locations', this.location, this.location_id, modal )
         },
         addResource ( modal ) {
             const resource = {
@@ -114,7 +114,7 @@ export default {
                 sell: this.input.sell,
                 buy: this.input.buy
             }
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.location.resources, resource)
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.location.resources, resource, 'locations')
             if( valid ) {
                 this.location.resources.push( resource )
                 this.apiUpdate( 'locations', this.location, this.location_id, modal )

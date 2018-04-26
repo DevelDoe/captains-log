@@ -65,7 +65,7 @@ export default {
                 description:  this.character.description,
                 location_id: this.character.location_id
             }
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.character, character)
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.character, character, 'characters', this.character_index)
             if( valid === 'true' ) {
                 this.apiUpdate( 'characters', character, this.character_id, modal )
             }
