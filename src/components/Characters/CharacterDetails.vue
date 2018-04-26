@@ -62,7 +62,7 @@ export default {
         update( modal ) {
             const character = {
                 name: this.character.name,
-                description:  this.$markdown.render(this.character.description),
+                description:  this.character.description,
                 location_id: this.character.location_id
             }
             const valid = this.mixinsValidate( this.meta_data.validation_rules.character, character)

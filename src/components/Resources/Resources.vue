@@ -46,7 +46,7 @@ export default {
             const resource = {
                 name: this.input.name
             }
-            const valid = this.mixinsValidate( this.meta_data.validation_rules.resource, resource )
+            const valid = this.mixinsValidate( this.meta_data.validation_rules.resource, resource, 'resources' )
             if( valid === 'true' ) {
                 this.apiSave( 'resources', resource, modal  )
                 this.input.name = ''
