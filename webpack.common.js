@@ -1,37 +1,25 @@
-/**
- * @Author: Andree Ray <andreeray>
- * @Date:   2018-01-13T20:15:58+01:00
- * @Email:  andreeray@live.com
- * @Filename: webpack.config.js
- * @Last modified by:   andreeray
- * @Last modified time: 2018-01-18T21:26:51+01:00
- */
-require('dotenv').config()
 const path = require('path')
-const webpack = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
-
-console.log("Mode: ", process.env.MODE)
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    entry: "./src/root.js",
+    entry: {
+        app: './src/root.js'
+    },
+    plugins: [
+        new WriteFilePlugin(),
+        new CleanWebpackPlugin(['dist']),
+        new HtmlWebpackPlugin({
+            title: 'Captains Log',
+            template: 'index.html'
+        })
+    ],
     output: {
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, '../dist'),
-        publicPath: "../dist/",
-        filename: 'bundle.js'
+        publicPath: "./",
     },
-
-    mode: process.env.MODE,
-
-    watch: true,
-
-    devServer: {
-        contentBase: path.join(__dirname, "../dist"),
-        compress: true,
-        inline: true,
-        port: 3001
-    },
-
     module: {
         rules: [
             {
@@ -65,28 +53,9 @@ module.exports = {
             }
         ]
     },
-
     resolve: {
       alias: {
         'vue$': 'vue/dist/vue.common.js'
       }
-    },
-
-    plugins: [
-        new WriteFilePlugin()
-    ],
-
-    devtool: '#eval-source-map'
-}
-if (process.env.NODE_ENV === 'production') {
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
+    }
 }
