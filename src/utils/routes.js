@@ -17,6 +17,9 @@ import CharacterDetails from '../components/Characters/CharacterDetails.vue'
 import Organisations from '../components/Organisations/Organisations.vue'
 import OrganisationDetails from '../components/Organisations/OrganisationDetails.vue'
 
+import Users from '../components/Users/Users.vue'
+
+
 export default [{
         path: '/',
         component: Home,
@@ -69,5 +72,9 @@ export default [{
         path: '/organisation-details',
         component: OrganisationDetails,
         name: 'Organisation'
+    },{
+        path: '/users',
+        component: Users,
+        name: 'users'
     }
 ]

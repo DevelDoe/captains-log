@@ -4,6 +4,8 @@ import '../node_modules/devel-style/devel-style.css'
 import './assets/css/app.css'
 import './assets/css/transitions.css'
 
+const { DevelLocalStorage } = require('devel-localstorage')
+
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import routes from './utils/routes'
@@ -25,14 +27,12 @@ Vue.use(helperFunctions)
 import api from './utils/api.js'
 Vue.use(api)
 
-import { bigNumber } from 'bignumber.js'
-Object.defineProperty(Vue.prototype, '$bigNumber', { get() { return this.$root.bigNumber } } )
-
 const bus = new Vue()
 Object.defineProperty(Vue.prototype, '$bus', { get() { return this.$root.bus } })
 
 const markdown = require('markdown-it')()
 Object.defineProperty(Vue.prototype, '$markdown', { get() { return this.$root.markdown } } )
+
 
 const root = new Vue({
     el: '#app',
@@ -54,7 +54,8 @@ const root = new Vue({
             response: '',
             meta_data: {},
             bus,
-            markdown
+            markdown,
+            users: []
         }
         return data
     },
@@ -71,6 +72,7 @@ const root = new Vue({
         this.$http.get('characters/').then(res => { this.characters = res.data })
         this.$http.get('missions/').then(res => { this.missions = res.data })
         this.$http.get('organisations/').then(res => { this.organisations = res.data })
+        this.$http.get('users/').then(res => { this.users = res.data })
     },
     mounted () { console.log('filter search field;production;settings Page(release)') }
 })

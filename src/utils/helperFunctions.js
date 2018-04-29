@@ -46,10 +46,9 @@ const helperFunctions = {
                                 if( validationRules[key].unique ) {
                                     if( !invalid ) {
 
-                                        let duplicate = this.isDuplicate( collection, data[key], index )
+                                        let duplicate = this.isDuplicate( collection, data[key], index, key )
 
                                         if( duplicate ) {
-                                            debugger
                                             invalid = true
                                             errorMessage.push(key.split("_")[0] + ' must be unique. ')
                                         }
@@ -95,10 +94,10 @@ const helperFunctions = {
                     return count == 0
                 },
 
-                isDuplicate(collection, value, index ) {
+                isDuplicate(collection, value, index, key ) {
 
                     var names = this[collection].map(function(item){
-                        return item.name.toLowerCase()
+                        return item[key].toLowerCase()
                     })
 
                     if( index ) names.splice(index, 1)

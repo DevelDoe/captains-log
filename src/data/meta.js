@@ -108,6 +108,43 @@ export default {
                 required: false,
                 unique: false
             }
+        },
+        users: {
+            name: {
+                type : 'String',
+                required: false,
+                unique: false
+            },
+            username: {
+                type: 'String',
+                required: true,
+                unique: true
+            },
+            email: {
+                type: 'String',
+                required: false,
+                unique: true
+            },
+            password: {
+                type: 'String',
+                required: true,
+                unique: false
+            },
+            image_src: {
+                type: 'String',
+                required: false,
+                unique: false
+            }
+        },
+        login: {
+            username: {
+                type: 'String',
+                required: true,
+            },
+            password: {
+                type: 'String',
+                required: true
+            }
         }
     },
     location_filters: [
